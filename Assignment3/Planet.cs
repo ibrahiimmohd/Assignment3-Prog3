@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment3
 {
-    class Planet
+    public class Planet
     {
         private static int _ID = 0;
 

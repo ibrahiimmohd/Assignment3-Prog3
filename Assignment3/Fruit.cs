@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment3
 {
-    class Fruit
+    public class Fruit
     {
         private static int _ID = 0;
 

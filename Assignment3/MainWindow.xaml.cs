@@ -10,7 +10,6 @@ namespace Assignment3
     /// </summary>
     public partial class MainWindow : Window
     {
-
         List<string> firstComboList = new List<string>();
         List<string> secondComboList = new List<string>();
 
