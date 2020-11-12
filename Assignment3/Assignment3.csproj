@@ -166,6 +166,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\20201112004456_InitialSetupDB.cs" />
+    <Compile Include="Migrations\20201112004456_InitialSetupDB.designer.cs">
+      <DependentUpon>20201112004456_InitialSetupDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\DBHelperContextModelSnapshot.cs" />
     <Compile Include="Models\Fruit.cs" />
     <Compile Include="Models\DBHelperContext.cs" />
     <Compile Include="Models\Planet.cs" />
