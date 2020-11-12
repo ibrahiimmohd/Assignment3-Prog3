@@ -7,16 +7,33 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="620.618" Width="789.692">
     <Grid Margin="0,0,22.333,25.667">
-        <ComboBox x:Name="firstComboBox" HorizontalAlignment="Left" Margin="48,288,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="FirstComboBox_SelectionChanged"/>
+        <ComboBox x:Name="firstComboBox" HorizontalAlignment="Left" Margin="48,288,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="FirstComboBox_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}: {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="Color"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
         <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="48,97,0,0" VerticalAlignment="Top" Width="230" SelectionChanged="FirstDataGrid_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding}" Header="Selection"/>
+                <DataGridTextColumn Header="FruitId" Binding="{Binding FruitId}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="secondComboBox" HorizontalAlignment="Left" Margin="48,334,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286"/>
+        <ComboBox x:Name="secondComboBox" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="48,334,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286"/>
         <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" SelectionChanged="SecondDataGrid_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding}" Header="Selection"/>
+                <DataGridTextColumn Header="PlanetId" Binding="{Binding FruitId}" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="thirdDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="513,97,0,0" VerticalAlignment="Top" Width="235" AutoGenerateColumns="False">
