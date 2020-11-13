@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Assignment3.Models;
 
 namespace Assignment3
 {
@@ -10,24 +11,45 @@ namespace Assignment3
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> firstComboList = new List<string>();
-        List<string> secondComboList = new List<string>();
+        DBHelperContext context = new DBHelperContext();
+        List<Fruit> firstComboList = new List<Fruit>();
+        List<Planet> secondComboList = new List<Planet>();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            firstComboBox.ItemsSource = Fruit.GetItems();
-            secondComboBox.ItemsSource = Planet.GetItems();
+            firstComboBox.ItemsSource = context.Fruit.ToList();//Fruit.GetItems();
+            secondComboBox.ItemsSource = context.Planet.ToList();//Planet.GetItems();
+
+            //Add to DB
+            //Planet newFruit = new Planet();
+            //newFruit.Name = $"Earth";
+            //newFruit.Color = $"Green 123";
+            //context.Planet.Add(newFruit);
+            //// context.Fruit.AddRange(); if want to add list
+            //context.SaveChanges();
+
+            //Retrieve from DB specific only 1 by first or default
+            //similar with Fruit::where('Color','Green6')->first()
+            //Fruit fruit = context.Fruit.Where(f => f.Color == "Green6").FirstOrDefault();
+            //MessageBox.Show($"Retrieve from DB Id = {fruit.FruitId}, name = {fruit.Name}, color = {fruit.Color}, updated at = {fruit.UpdatedAt}");
+
+            // Retrieve from DB specific only 1 by first or default
+            // similar with Fruit::where('FruitId',1)->get()
+            //List<Fruit> fruits = context.Fruit.ToList();
+
+            //foreach (Fruit f in fruits)
+            //{
+            //    MessageBox.Ssawzhow($"Retrieve from DB Id = {f.FruitId}, name = {f.Name}, color = {f.Color}, updated at = {f.UpdatedAt}");
+            //}
         }
 
         private void FirstComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string value = firstComboBox.SelectedItem as string;
-
+            Fruit value = firstComboBox.SelectedItem as Fruit; 
             if (firstComboBox.SelectedIndex != 0)
             {
-               
                 firstComboList.Add(value);
                 firstDataGrid.ItemsSource = firstComboList;
                 firstDataGrid.Items.Refresh();
@@ -36,14 +58,64 @@ namespace Assignment3
 
         private void SecondComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string value = secondComboBox.SelectedItem as string;
-
+            Planet value = secondComboBox.SelectedItem as Planet;
             if (secondComboBox.SelectedIndex != 0)
             {
                 secondComboList.Add(value);
                 secondDataGrid.ItemsSource = secondComboList;
                 secondDataGrid.Items.Refresh();
             }
+        }
+
+        //I did the logic where when you select an item on the datagrid, it would unselect the "same" item on the other datagrid
+        //The issue is there are no similarities at the moment, will need to clarify this later
+        private void FirstDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Fruit value = firstComboBox.SelectedItem as Fruit;
+
+            //if (value != null)
+            //{
+            //    //int index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(value)));
+            //    int index = secondComboList.IndexOf(secondComboList.Find(item => item.Name == value.Name);
+            //    if (index != -1)
+            //    {
+            //        secondComboList.RemoveAt(index);
+            //    }
+
+            //    secondDataGrid.ItemsSource = secondComboList;
+            //    secondDataGrid.Items.Refresh();
+            //}
+            if (value != null)
+            {
+                //int index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(value)));
+                int index = firstComboList.IndexOf(firstComboList.Find(item => item.Name == value.Name));
+                if (index != -1)
+                {
+                    firstComboList.RemoveAt(index);
+                }
+
+                secondDataGrid.ItemsSource = firstComboList;
+                secondDataGrid.Items.Refresh();
+            }
+        }
+
+        //I did the logic where when you select an item on the datagrid, it would unselect the "same" item on the other datagrid
+        //The issue is there are no similarities at the moment, will need to clarify this later
+        private void SecondDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //string value = secondDataGrid.SelectedItem as string;
+
+            //if (value != null)
+            //{
+            //    int index = firstComboList.IndexOf(firstComboList.Find(item => item.Contains(value)));
+            //    if (index != -1)
+            //    {
+            //        firstComboList.RemoveAt(index);
+            //    }
+               
+            //    firstDataGrid.ItemsSource = firstComboList;
+            //    firstDataGrid.Items.Refresh();
+            //}
         }
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
@@ -67,47 +139,37 @@ namespace Assignment3
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null)
-            {
-                string valueFirstDatagrid = firstDataGrid.SelectedItem as string;
-                string valueSecondDatagrid = secondDataGrid.SelectedItem as string;
+            //if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null)
+            //{
+            //    string valueFirstDatagrid = firstDataGrid.SelectedItem as string;
+            //    string valueSecondDatagrid = secondDataGrid.SelectedItem as string;
 
-                int index;
+            //    int index;
 
-                if (valueFirstDatagrid != null)
-                {
-                    index = firstComboList.IndexOf(firstComboList.Find(item => item.Contains(valueFirstDatagrid)));
-                    if (index != -1)
-                    {
-                        firstComboList.RemoveAt(index);
-                    }
-                    firstDataGrid.ItemsSource = firstComboList;
-                    firstDataGrid.Items.Refresh();
-                    firstComboBox.SelectedIndex = 0;
-                }
+            //    if (valueFirstDatagrid != null)
+            //    {
+            //        index = firstComboList.IndexOf(firstComboList.Find(item => item.Contains(valueFirstDatagrid)));
+            //        if (index != -1)
+            //        {
+            //            firstComboList.RemoveAt(index);
+            //        }
+            //        firstDataGrid.ItemsSource = firstComboList;
+            //        firstDataGrid.Items.Refresh();
+            //        firstComboBox.SelectedIndex = 0;
+            //    }
 
-                if (valueSecondDatagrid != null)
-                {
-                    index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(valueSecondDatagrid)));
-                    if (index != -1)
-                    {
-                        secondComboList.RemoveAt(index);
-                    }
-                    secondDataGrid.ItemsSource = secondComboList;
-                    secondDataGrid.Items.Refresh();
-                    secondComboBox.SelectedIndex = 0;
-                }
-            }
-        }
-
-        private void FirstDataGrid_GotFocus(object sender, RoutedEventArgs e)
-        {
-            secondDataGrid.UnselectAll();
-        }
-
-        private void SecondDataGrid_GotFocus(object sender, RoutedEventArgs e)
-        {
-            firstDataGrid.UnselectAll();
+            //    if (valueSecondDatagrid != null)
+            //    {
+            //        index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(valueSecondDatagrid)));
+            //        if (index != -1)
+            //        {
+            //            secondComboList.RemoveAt(index);
+            //        }
+            //        secondDataGrid.ItemsSource = secondComboList;
+            //        secondDataGrid.Items.Refresh();
+            //        secondComboBox.SelectedIndex = 0;
+            //    }
+            //}
         }
     }
 }
