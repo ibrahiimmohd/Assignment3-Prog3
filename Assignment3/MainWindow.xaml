@@ -8,13 +8,13 @@
         Title="MainWindow" Height="620.618" Width="789.692">
     <Grid Margin="0,0,22.333,25.667">
         <ComboBox x:Name="firstComboBox" HorizontalAlignment="Left" Margin="48,288,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="FirstComboBox_SelectionChanged"/>
-        <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="48,97,0,0" VerticalAlignment="Top" Width="230" SelectionChanged="FirstDataGrid_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="48,97,0,0" VerticalAlignment="Top" Width="230" AutoGenerateColumns="False" GotFocus="FirstDataGrid_GotFocus">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding}" Header="Selection"/>
             </DataGrid.Columns>
         </DataGrid>
         <ComboBox x:Name="secondComboBox" HorizontalAlignment="Left" Margin="48,334,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286"/>
-        <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" SelectionChanged="SecondDataGrid_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" AutoGenerateColumns="False" GotFocus="SecondDataGrid_GotFocus">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding}" Header="Selection"/>
             </DataGrid.Columns>
