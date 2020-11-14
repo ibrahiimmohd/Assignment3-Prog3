@@ -74,16 +74,6 @@ namespace Assignment3
             this.FetchDataPlanet();
         }
 
-        private void FirstDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void SecondDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
             if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null || thirdDataGrid.ItemsSource != null)
