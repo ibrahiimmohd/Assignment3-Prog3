@@ -11,10 +11,8 @@ namespace Assignment3.Models
 {
     public class DBHelperContext : DbContext
     {
-        public DBHelperContext() : base()
+        public DBHelperContext() : base("Assignment3_db")
         {
-            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DBHelperContext>());
-
             Database.SetInitializer(new DBInitializer());
         }
 

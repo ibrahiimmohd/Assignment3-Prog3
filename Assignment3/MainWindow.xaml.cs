@@ -19,8 +19,8 @@ namespace Assignment3
         {
             InitializeComponent();
 
-            firstComboBox.ItemsSource = context.Fruits.ToList();//Fruit.GetItems();
-            secondComboBox.ItemsSource = context.Planets.ToList();//Planet.GetItems();
+            firstComboBox.ItemsSource = context.Fruits.ToList();
+            secondComboBox.ItemsSource = context.Planets.ToList();
             this.FetchDataFruit();
             this.FetchDataPlanet();
             firstDataGrid.CanUserAddRows = false;
@@ -82,13 +82,15 @@ namespace Assignment3
         {
             if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null || thirdDataGrid.ItemsSource != null)
             {
-                firstComboList.Clear();
-                firstDataGrid.ItemsSource = firstComboList;
+                context.Fruits.RemoveRange(context.Fruits);
+                context.SaveChanges();
+                firstDataGrid.ItemsSource = null;
                 firstDataGrid.Items.Refresh();
                 firstComboBox.SelectedIndex = -1;
 
-                secondDataGrid.ItemsSource = secondComboList;
-                secondComboList.Clear();
+                context.Planets.RemoveRange(context.Planets);
+                context.SaveChanges();
+                secondDataGrid.ItemsSource = null;
                 secondDataGrid.Items.Refresh();
                 secondComboBox.SelectedIndex = -1;
 
