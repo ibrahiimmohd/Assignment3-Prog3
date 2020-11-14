@@ -14,6 +14,7 @@ namespace Assignment3.Models
         {
             Name = name;
             Color = color;
+            CreatedAt = DateTime.Now;
         }
         public int FruitId { get; set; }
         public string Name { get; set; }
