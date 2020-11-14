@@ -23,23 +23,23 @@
         </ComboBox>
         <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="48,97,0,0" VerticalAlignment="Top" Width="230" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FruitId" Binding="{Binding FruitId}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
+                <DataGridTextColumn Header="FruitId" Binding="{Binding FruitId}" IsReadOnly="true"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="true"/>
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}" IsReadOnly="true"/>
             </DataGrid.Columns>
         </DataGrid>
         <ComboBox x:Name="secondComboBox" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="48,334,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286"/>
         <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="PlanetId" Binding="{Binding PlanetId}" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
+                <DataGridTextColumn Header="PlanetId" Binding="{Binding PlanetId}" IsReadOnly="true"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="true"/>
+                <DataGridTextColumn Header="Color" Binding="{Binding Color}" IsReadOnly="true"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="thirdDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="513,97,0,0" VerticalAlignment="Top" Width="235" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FruitName" Binding="{Binding FruitName}" />
-                <DataGridTextColumn Header="PlanetName" Binding="{Binding PlanetName}" />
+                <DataGridTextColumn Header="FruitName" Binding="{Binding FruitName}" IsReadOnly="true"/>
+                <DataGridTextColumn Header="PlanetName" Binding="{Binding PlanetName}" IsReadOnly="true"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="clearBtn" Content="Clear" HorizontalAlignment="Left" Margin="48,394,0,0" VerticalAlignment="Top" Width="110" Click="ClearBtn_Click" RenderTransformOrigin="0.316,2.668" Height="27"/>

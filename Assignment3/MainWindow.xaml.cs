@@ -23,6 +23,10 @@ namespace Assignment3
             secondComboBox.ItemsSource = context.Planets.ToList();//Planet.GetItems();
             this.FetchDataFruit();
             this.FetchDataPlanet();
+            firstDataGrid.CanUserAddRows = false;
+            secondDataGrid.CanUserAddRows = false;
+            thirdDataGrid.CanUserAddRows = false;
+
             //Add to DB
             //Planet newFruit = new Planet();
             //newFruit.Name = $"Earth";
