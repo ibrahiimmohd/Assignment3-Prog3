@@ -31,21 +31,22 @@
         <ComboBox x:Name="secondComboBox" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="48,334,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286"/>
         <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" SelectionChanged="SecondDataGrid_SelectionChanged" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="PlanetId" Binding="{Binding FruitId}" />
+                <DataGridTextColumn Header="PlanetId" Binding="{Binding PlanetId}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Color" Binding="{Binding Color}" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid x:Name="thirdDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="513,97,0,0" VerticalAlignment="Top" Width="235" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding}" Header="Selection"/>
+                <DataGridTextColumn Header="FruitName" Binding="{Binding FruitName}" />
+                <DataGridTextColumn Header="PlanetName" Binding="{Binding PlanetName}" />
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="clearBtn" Content="Clear" HorizontalAlignment="Left" Margin="48,394,0,0" VerticalAlignment="Top" Width="110" Click="ClearBtn_Click" RenderTransformOrigin="0.316,2.668" Height="27"/>
         <Button x:Name="deleteBtn" Content="Delete" HorizontalAlignment="Left" Margin="48,433,0,0" VerticalAlignment="Top" Width="110" Click="DeleteBtn_Click" RenderTransformOrigin="0.388,1.901" Height="24"/>
-        <Button x:Name="linqProjectBtn" Content="LINQ Project QS" HorizontalAlignment="Left" Margin="518,394,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
-        <Button x:Name="linqFilterBtn" Content="LINQ Filter QS" HorizontalAlignment="Left" Margin="518,433,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
-        <Button x:Name="linqOrderAscBtn" Content="LINQ Order Ascending QS" HorizontalAlignment="Left" Margin="518,475,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
-        <Button x:Name="linqInnerJoinBtn" Content="LINQ Inner Join QS" HorizontalAlignment="Left" Margin="518,522,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
+        <Button x:Name="linqProjectBtn" Click="linqProjectBtn_Click" Content="LINQ Project QS" HorizontalAlignment="Left" Margin="518,394,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
+        <Button x:Name="linqFilterBtn" Click="linqFilterBtn_Click" Content="LINQ Filter QS" HorizontalAlignment="Left" Margin="518,433,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
+        <Button x:Name="linqOrderAscBtn" Click="linqOrderAscBtn_Click" Content="LINQ Order Ascending QS" HorizontalAlignment="Left" Margin="518,475,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
+        <Button x:Name="linqInnerJoinBtn" Click="linqInnerJoinBtn_Click" Content="LINQ Inner Join QS" HorizontalAlignment="Left" Margin="518,522,0,0" VerticalAlignment="Top" Width="146" Height="28"/>
     </Grid>
 </Window>

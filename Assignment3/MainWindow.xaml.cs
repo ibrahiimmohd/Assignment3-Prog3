@@ -21,7 +21,8 @@ namespace Assignment3
 
             firstComboBox.ItemsSource = context.Fruit.ToList();//Fruit.GetItems();
             secondComboBox.ItemsSource = context.Planet.ToList();//Planet.GetItems();
-
+            this.FetchDataFruit();
+            this.FetchDataPlanet();
             //Add to DB
             //Planet newFruit = new Planet();
             //newFruit.Name = $"Earth";
@@ -41,30 +42,36 @@ namespace Assignment3
 
             //foreach (Fruit f in fruits)
             //{
-            //    MessageBox.Ssawzhow($"Retrieve from DB Id = {f.FruitId}, name = {f.Name}, color = {f.Color}, updated at = {f.UpdatedAt}");
+            //    MessageBox.Show($"Retrieve from DB Id = {f.FruitId}, name = {f.Name}, color = {f.Color}, updated at = {f.UpdatedAt}");
             //}
         }
 
         private void FirstComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Fruit value = firstComboBox.SelectedItem as Fruit; 
-            if (firstComboBox.SelectedIndex != 0)
+            if (firstComboBox.SelectedIndex >= 0)
             {
-                firstComboList.Add(value);
-                firstDataGrid.ItemsSource = firstComboList;
-                firstDataGrid.Items.Refresh();
+                Fruit newFruit = new Fruit();
+                newFruit.Name = value.Name;
+                newFruit.Color = value.Color;
+                context.Fruit.Add(newFruit);
+                context.SaveChanges();
             }
+            this.FetchDataFruit();
         }
 
         private void SecondComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Planet value = secondComboBox.SelectedItem as Planet;
-            if (secondComboBox.SelectedIndex != 0)
+            if (secondComboBox.SelectedIndex >= 0)
             {
-                secondComboList.Add(value);
-                secondDataGrid.ItemsSource = secondComboList;
-                secondDataGrid.Items.Refresh();
+                Planet newPlanet = new Planet();
+                newPlanet.Name = value.Name;
+                newPlanet.Color = value.Color;
+                context.Planet.Add(newPlanet);
+                context.SaveChanges();
             }
+            this.FetchDataPlanet();
         }
 
         //I did the logic where when you select an item on the datagrid, it would unselect the "same" item on the other datagrid
@@ -125,12 +132,12 @@ namespace Assignment3
                 firstComboList.Clear();
                 firstDataGrid.ItemsSource = firstComboList;
                 firstDataGrid.Items.Refresh();
-                firstComboBox.SelectedIndex = 0;
+                firstComboBox.SelectedIndex = -1;
 
                 secondDataGrid.ItemsSource = secondComboList;
                 secondComboList.Clear();
                 secondDataGrid.Items.Refresh();
-                secondComboBox.SelectedIndex = 0;
+                secondComboBox.SelectedIndex = -1;
 
                 thirdDataGrid.ItemsSource = null;
                 thirdDataGrid.Items.Refresh();
@@ -139,37 +146,80 @@ namespace Assignment3
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            //if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null)
-            //{
-            //    string valueFirstDatagrid = firstDataGrid.SelectedItem as string;
-            //    string valueSecondDatagrid = secondDataGrid.SelectedItem as string;
+            if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null)
+            {
+                Fruit valueFirstDatagrid = firstDataGrid.SelectedItem as Fruit;
+                Planet valueSecondDatagrid = firstDataGrid.SelectedItem as Planet;
 
-            //    int index;
+                int index;
 
-            //    if (valueFirstDatagrid != null)
-            //    {
-            //        index = firstComboList.IndexOf(firstComboList.Find(item => item.Contains(valueFirstDatagrid)));
-            //        if (index != -1)
-            //        {
-            //            firstComboList.RemoveAt(index);
-            //        }
-            //        firstDataGrid.ItemsSource = firstComboList;
-            //        firstDataGrid.Items.Refresh();
-            //        firstComboBox.SelectedIndex = 0;
-            //    }
+                if (valueFirstDatagrid != null)
+                {
+                    index = firstComboList.IndexOf(firstComboList.Find(item => item.Name == valueFirstDatagrid.Name));
+                    if (index != -1)
+                    {
+                        firstComboList.RemoveAt(index);
+                    }
+                    firstDataGrid.ItemsSource = firstComboList;
+                    firstDataGrid.Items.Refresh();
+                    firstComboBox.SelectedIndex = -1;
+                }
 
-            //    if (valueSecondDatagrid != null)
-            //    {
-            //        index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(valueSecondDatagrid)));
-            //        if (index != -1)
-            //        {
-            //            secondComboList.RemoveAt(index);
-            //        }
-            //        secondDataGrid.ItemsSource = secondComboList;
-            //        secondDataGrid.Items.Refresh();
-            //        secondComboBox.SelectedIndex = 0;
-            //    }
-            //}
+                if (valueSecondDatagrid != null)
+                {
+                    index = secondComboList.IndexOf(secondComboList.Find(item => item.Name == valueSecondDatagrid.Name));
+                    if (index != -1)
+                    {
+                        secondComboList.RemoveAt(index);
+                    }
+                    secondDataGrid.ItemsSource = secondComboList;
+                    secondDataGrid.Items.Refresh();
+                    secondComboBox.SelectedIndex = -1;
+                }
+            }
+        }
+
+        private void linqInnerJoinBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var query = from fruit in context.Fruit.ToList()
+                        join planet in context.Planet.ToList() on fruit.Color equals planet.Color
+                        select new { FruitName = fruit.Name, PlanetName = planet.Name };
+            thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();
+        }
+
+        private void linqFilterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var query = from fruit in context.Fruit.ToList()
+                        where fruit.Color == "red"
+                        select new { FruitName = fruit.Name};
+            thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();
+        }
+
+        private void linqOrderAscBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var query = from fruit in context.Fruit.ToList()
+                        orderby fruit.Name ascending
+                        select new { FruitName = fruit.Name };
+            thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();
+        }
+
+        private void FetchDataFruit()
+        {
+            firstDataGrid.ItemsSource = context.Fruit.ToList();
+            firstDataGrid.Items.Refresh();
+        }
+        private void FetchDataPlanet()
+        {
+            secondDataGrid.ItemsSource = context.Planet.ToList();
+            secondDataGrid.Items.Refresh();
+        }
+
+        private void linqProjectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Do something");
         }
     }
 }
