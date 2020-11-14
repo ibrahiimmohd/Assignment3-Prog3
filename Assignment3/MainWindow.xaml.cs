@@ -132,6 +132,14 @@ namespace Assignment3
             }
         }
 
+        private void linqProjectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var query = from fruit in context.Fruits.ToList()
+                        select new { FruitName = fruit.Name };
+            thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();
+        }
+
         private void linqInnerJoinBtn_Click(object sender, RoutedEventArgs e)
         {
             var query = from fruit in context.Fruits.ToList()
@@ -144,7 +152,7 @@ namespace Assignment3
         private void linqFilterBtn_Click(object sender, RoutedEventArgs e)
         {
             var query = from fruit in context.Fruits.ToList()
-                        where fruit.Color == "red"
+                        where fruit.Color == "Red"
                         select new { FruitName = fruit.Name};
             thirdDataGrid.ItemsSource = query;
             thirdDataGrid.Items.Refresh();
@@ -168,11 +176,6 @@ namespace Assignment3
         {
             secondDataGrid.ItemsSource = context.Planets.ToList();
             secondDataGrid.Items.Refresh();
-        }
-
-        private void linqProjectBtn_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Do something");
         }
     }
 }
