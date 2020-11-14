@@ -19,8 +19,8 @@ namespace Assignment3
         {
             InitializeComponent();
 
-            firstComboBox.ItemsSource = context.Fruit.ToList();//Fruit.GetItems();
-            secondComboBox.ItemsSource = context.Planet.ToList();//Planet.GetItems();
+            firstComboBox.ItemsSource = context.Fruits.ToList();//Fruit.GetItems();
+            secondComboBox.ItemsSource = context.Planets.ToList();//Planet.GetItems();
             this.FetchDataFruit();
             this.FetchDataPlanet();
             //Add to DB
@@ -54,7 +54,7 @@ namespace Assignment3
                 Fruit newFruit = new Fruit();
                 newFruit.Name = value.Name;
                 newFruit.Color = value.Color;
-                context.Fruit.Add(newFruit);
+                context.Fruits.Add(newFruit);
                 context.SaveChanges();
             }
             this.FetchDataFruit();
@@ -68,7 +68,7 @@ namespace Assignment3
                 Planet newPlanet = new Planet();
                 newPlanet.Name = value.Name;
                 newPlanet.Color = value.Color;
-                context.Planet.Add(newPlanet);
+                context.Planets.Add(newPlanet);
                 context.SaveChanges();
             }
             this.FetchDataPlanet();
@@ -181,8 +181,8 @@ namespace Assignment3
 
         private void linqInnerJoinBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruit.ToList()
-                        join planet in context.Planet.ToList() on fruit.Color equals planet.Color
+            var query = from fruit in context.Fruits.ToList()
+                        join planet in context.Planets.ToList() on fruit.Color equals planet.Color
                         select new { FruitName = fruit.Name, PlanetName = planet.Name };
             thirdDataGrid.ItemsSource = query;
             thirdDataGrid.Items.Refresh();
@@ -190,7 +190,7 @@ namespace Assignment3
 
         private void linqFilterBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruit.ToList()
+            var query = from fruit in context.Fruits.ToList()
                         where fruit.Color == "red"
                         select new { FruitName = fruit.Name};
             thirdDataGrid.ItemsSource = query;
@@ -199,7 +199,7 @@ namespace Assignment3
 
         private void linqOrderAscBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruit.ToList()
+            var query = from fruit in context.Fruits.ToList()
                         orderby fruit.Name ascending
                         select new { FruitName = fruit.Name };
             thirdDataGrid.ItemsSource = query;
@@ -208,12 +208,12 @@ namespace Assignment3
 
         private void FetchDataFruit()
         {
-            firstDataGrid.ItemsSource = context.Fruit.ToList();
+            firstDataGrid.ItemsSource = context.Fruits.ToList();
             firstDataGrid.Items.Refresh();
         }
         private void FetchDataPlanet()
         {
-            secondDataGrid.ItemsSource = context.Planet.ToList();
+            secondDataGrid.ItemsSource = context.Planets.ToList();
             secondDataGrid.Items.Refresh();
         }
 

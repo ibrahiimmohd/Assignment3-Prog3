@@ -5,6 +5,18 @@ namespace Assignment3.Models
 {
     public partial class Fruit
     {
+        public Fruit()
+        {
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
+        public Fruit(string name, string color)
+        {
+            Name = name;
+            Color = color;
+            CreatedAt = DateTime.Now;
+            UpdatedAt = DateTime.Now;
+        }
         public int FruitId { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
