@@ -10,12 +10,10 @@ namespace Assignment3.Models
             CreatedAt = DateTime.Now;
             UpdatedAt = DateTime.Now;
         }
-        public Planet(string name, string color) 
+        public Planet(string name, string color) : base()
         {
             Name = name;
             Color = color;
-            CreatedAt = DateTime.Now;
-            UpdatedAt = DateTime.Now;
         }
         public int PlanetId { get; set; }
         public string Name { get; set; }

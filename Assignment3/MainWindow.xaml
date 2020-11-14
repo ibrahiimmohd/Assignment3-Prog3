@@ -21,7 +21,7 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="48,97,0,0" VerticalAlignment="Top" Width="230" SelectionChanged="FirstDataGrid_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="164" Margin="48,97,0,0" VerticalAlignment="Top" Width="230" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="FruitId" Binding="{Binding FruitId}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
@@ -29,7 +29,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <ComboBox x:Name="secondComboBox" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="48,334,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286"/>
-        <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" SelectionChanged="SecondDataGrid_SelectionChanged" AutoGenerateColumns="False">
+        <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="164" Margin="0,97,243,0" VerticalAlignment="Top" Width="240" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="PlanetId" Binding="{Binding PlanetId}" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" />

@@ -74,55 +74,14 @@ namespace Assignment3
             this.FetchDataPlanet();
         }
 
-        //I did the logic where when you select an item on the datagrid, it would unselect the "same" item on the other datagrid
-        //The issue is there are no similarities at the moment, will need to clarify this later
         private void FirstDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Fruit value = firstComboBox.SelectedItem as Fruit;
 
-            //if (value != null)
-            //{
-            //    //int index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(value)));
-            //    int index = secondComboList.IndexOf(secondComboList.Find(item => item.Name == value.Name);
-            //    if (index != -1)
-            //    {
-            //        secondComboList.RemoveAt(index);
-            //    }
-
-            //    secondDataGrid.ItemsSource = secondComboList;
-            //    secondDataGrid.Items.Refresh();
-            //}
-            if (value != null)
-            {
-                //int index = secondComboList.IndexOf(secondComboList.Find(item => item.Contains(value)));
-                int index = firstComboList.IndexOf(firstComboList.Find(item => item.Name == value.Name));
-                if (index != -1)
-                {
-                    firstComboList.RemoveAt(index);
-                }
-
-                secondDataGrid.ItemsSource = firstComboList;
-                secondDataGrid.Items.Refresh();
-            }
         }
 
-        //I did the logic where when you select an item on the datagrid, it would unselect the "same" item on the other datagrid
-        //The issue is there are no similarities at the moment, will need to clarify this later
         private void SecondDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //string value = secondDataGrid.SelectedItem as string;
 
-            //if (value != null)
-            //{
-            //    int index = firstComboList.IndexOf(firstComboList.Find(item => item.Contains(value)));
-            //    if (index != -1)
-            //    {
-            //        firstComboList.RemoveAt(index);
-            //    }
-               
-            //    firstDataGrid.ItemsSource = firstComboList;
-            //    firstDataGrid.Items.Refresh();
-            //}
         }
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
