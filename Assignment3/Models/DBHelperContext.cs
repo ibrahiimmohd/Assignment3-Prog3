@@ -1,77 +1,25 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Assignment3.Models;
 
 namespace Assignment3.Models
 {
-    public partial class DBHelperContext : DbContext
+    public class DBHelperContext : DbContext
     {
-        public DBHelperContext()
+        public DBHelperContext() : base("Assignment3_db")
         {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DBHelperContext>());
+
+            //Database.SetInitializer(new AssignDbIntializer());
         }
 
-        public DBHelperContext(DbContextOptions<DBHelperContext> options)
-            : base(options)
-        {
-        }
+        public DbSet<Fruit> Fruits { get; set; }
+        public DbSet<Planet> Planets { get; set; }
 
-        public virtual DbSet<Fruit> Fruit { get; set; }
-        public virtual DbSet<Planet> Planet { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                // replace your local server/db here
-                string server_name = "DESKTOP-1MLROAQ";
-                string db_name = "master";
-                optionsBuilder.UseSqlServer($"Server={server_name};Database={db_name};Trusted_Connection=True;");
-            }
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Fruit>(entity =>
-            {
-                entity.Property(e => e.FruitId).HasColumnName("FruitID");
-
-                entity.Property(e => e.Color).IsUnicode(false);
-
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnName("created_at")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Name).IsUnicode(false);
-
-                entity.Property(e => e.UpdatedAt)
-                    .HasColumnName("updated_at")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-            });
-
-            modelBuilder.Entity<Planet>(entity =>
-            {
-                entity.Property(e => e.PlanetId).HasColumnName("PlanetID");
-
-                entity.Property(e => e.Color).IsUnicode(false);
-
-                entity.Property(e => e.CreatedAt)
-                    .HasColumnName("created_at")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Name).IsUnicode(false);
-
-                entity.Property(e => e.UpdatedAt)
-                    .HasColumnName("updated_at")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
-            });
-
-            OnModelCreatingPartial(modelBuilder);
-        }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
