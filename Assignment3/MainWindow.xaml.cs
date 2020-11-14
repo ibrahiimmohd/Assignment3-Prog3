@@ -102,31 +102,25 @@ namespace Assignment3
             if (firstDataGrid.ItemsSource != null || secondDataGrid.ItemsSource != null)
             {
                 Fruit valueFirstDatagrid = firstDataGrid.SelectedItem as Fruit;
-                Planet valueSecondDatagrid = firstDataGrid.SelectedItem as Planet;
+                Planet valueSecondDatagrid = secondDataGrid.SelectedItem as Planet;
 
-                int index;
 
                 if (valueFirstDatagrid != null)
                 {
-                    index = firstComboList.IndexOf(firstComboList.Find(item => item.Name == valueFirstDatagrid.Name));
-                    if (index != -1)
-                    {
-                        firstComboList.RemoveAt(index);
-                    }
-                    firstDataGrid.ItemsSource = firstComboList;
-                    firstDataGrid.Items.Refresh();
+                    
+                    context.Fruits.Remove(valueFirstDatagrid);
+                    context.SaveChanges();
+
+                    this.FetchDataFruit();
                     firstComboBox.SelectedIndex = -1;
                 }
 
                 if (valueSecondDatagrid != null)
                 {
-                    index = secondComboList.IndexOf(secondComboList.Find(item => item.Name == valueSecondDatagrid.Name));
-                    if (index != -1)
-                    {
-                        secondComboList.RemoveAt(index);
-                    }
-                    secondDataGrid.ItemsSource = secondComboList;
-                    secondDataGrid.Items.Refresh();
+                    context.Planets.Remove(valueSecondDatagrid);
+                    context.SaveChanges();
+
+                    this.FetchDataPlanet();
                     secondComboBox.SelectedIndex = -1;
                 }
             }
