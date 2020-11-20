@@ -109,23 +109,28 @@ namespace Assignment3
 
         private void linqProjectBtn_Click(object sender, RoutedEventArgs e)
         {
-            /*var query = from fruit in context.Fruits.ToList()
+            /* // Original submission
+             * 
+             * var query = from fruit in context.Fruits.ToList()
                         select new { FruitName = fruit.Name };
             thirdDataGrid.ItemsSource = query;
             thirdDataGrid.Items.Refresh();*/
 
+            // Modified based on Professor's suggestion
             thirdDataGrid.ItemsSource = context.Fruits.ToList().Select(f => new { FruitName = f.Name });
             thirdDataGrid.Items.Refresh();
         }
 
         private void linqInnerJoinBtn_Click(object sender, RoutedEventArgs e)
         {
-            /*var query = from fruit in context.Fruits.ToList()
+            /* // Original submission
+             * var query = from fruit in context.Fruits.ToList()
                         join planet in context.Planets.ToList() on fruit.Color equals planet.Color
                         select new { FruitName = fruit.Name, PlanetName = planet.Name };
             thirdDataGrid.ItemsSource = query;
             thirdDataGrid.Items.Refresh();*/
 
+            // Modified based on Professor's suggestion
             var query = context.Fruits.Join(context.Planets,
                                 fruit => fruit.Color,
                                 planet => planet.Color,
@@ -139,12 +144,14 @@ namespace Assignment3
 
         private void linqFilterBtn_Click(object sender, RoutedEventArgs e)
         {
-            /*var query = from fruit in context.Fruits.ToList()
+            /* // Original submission
+             * var query = from fruit in context.Fruits.ToList()
                         where fruit.Color == "Red"
                         select new { FruitName = fruit.Name};
             thirdDataGrid.ItemsSource = query;
             thirdDataGrid.Items.Refresh();*/
 
+            // Modified based on Professor's suggestion
             thirdDataGrid.ItemsSource = context.Fruits.ToList().Where(r => r.Color == "Red").Select(f => new { FruitName = f.Name });
             thirdDataGrid.Items.Refresh();
 
@@ -152,13 +159,15 @@ namespace Assignment3
 
         private void linqOrderAscBtn_Click(object sender, RoutedEventArgs e)
         {
-            /*var query = from fruit in context.Fruits.ToList()
+            /* // Original submission
+             * var query = from fruit in context.Fruits.ToList()
                         orderby fruit.Name ascending
                         select new { FruitName = fruit.Name };
             
             thirdDataGrid.ItemsSource = query;
             thirdDataGrid.Items.Refresh();*/
 
+            // Modified based on Professor's suggestion
             thirdDataGrid.ItemsSource = context.Fruits.ToList().OrderBy(r => r.Name).Select(f => new { FruitName = f.Name });
             thirdDataGrid.Items.Refresh();
         }
