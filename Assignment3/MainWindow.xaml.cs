@@ -27,27 +27,6 @@ namespace Assignment3
             secondDataGrid.CanUserAddRows = false;
             thirdDataGrid.CanUserAddRows = false;
 
-            //Add to DB
-            //Planet newFruit = new Planet();
-            //newFruit.Name = $"Earth";
-            //newFruit.Color = $"Green 123";
-            //context.Planet.Add(newFruit);
-            //// context.Fruit.AddRange(); if want to add list
-            //context.SaveChanges();
-
-            //Retrieve from DB specific only 1 by first or default
-            //similar with Fruit::where('Color','Green6')->first()
-            //Fruit fruit = context.Fruit.Where(f => f.Color == "Green6").FirstOrDefault();
-            //MessageBox.Show($"Retrieve from DB Id = {fruit.FruitId}, name = {fruit.Name}, color = {fruit.Color}, updated at = {fruit.UpdatedAt}");
-
-            // Retrieve from DB specific only 1 by first or default
-            // similar with Fruit::where('FruitId',1)->get()
-            //List<Fruit> fruits = context.Fruit.ToList();
-
-            //foreach (Fruit f in fruits)
-            //{
-            //    MessageBox.Show($"Retrieve from DB Id = {f.FruitId}, name = {f.Name}, color = {f.Color}, updated at = {f.UpdatedAt}");
-            //}
         }
 
         private void FirstComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -130,36 +109,57 @@ namespace Assignment3
 
         private void linqProjectBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruits.ToList()
+            /*var query = from fruit in context.Fruits.ToList()
                         select new { FruitName = fruit.Name };
             thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();*/
+
+            thirdDataGrid.ItemsSource = context.Fruits.ToList().Select(f => new { FruitName = f.Name });
             thirdDataGrid.Items.Refresh();
         }
 
         private void linqInnerJoinBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruits.ToList()
+            /*var query = from fruit in context.Fruits.ToList()
                         join planet in context.Planets.ToList() on fruit.Color equals planet.Color
                         select new { FruitName = fruit.Name, PlanetName = planet.Name };
             thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();*/
+
+            var query = context.Fruits.Join(context.Planets,
+                                fruit => fruit.Color,
+                                planet => planet.Color,
+                                (fruit, planet) => new {
+                                    FruitName = fruit.Name,
+                                    PlanetName = planet.Name
+                                });
+            thirdDataGrid.ItemsSource = query.ToList();
             thirdDataGrid.Items.Refresh();
         }
 
         private void linqFilterBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruits.ToList()
+            /*var query = from fruit in context.Fruits.ToList()
                         where fruit.Color == "Red"
                         select new { FruitName = fruit.Name};
             thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();*/
+
+            thirdDataGrid.ItemsSource = context.Fruits.ToList().Where(r => r.Color == "Red").Select(f => new { FruitName = f.Name });
             thirdDataGrid.Items.Refresh();
+
         }
 
         private void linqOrderAscBtn_Click(object sender, RoutedEventArgs e)
         {
-            var query = from fruit in context.Fruits.ToList()
+            /*var query = from fruit in context.Fruits.ToList()
                         orderby fruit.Name ascending
                         select new { FruitName = fruit.Name };
+            
             thirdDataGrid.ItemsSource = query;
+            thirdDataGrid.Items.Refresh();*/
+
+            thirdDataGrid.ItemsSource = context.Fruits.ToList().OrderBy(r => r.Name).Select(f => new { FruitName = f.Name });
             thirdDataGrid.Items.Refresh();
         }
 
@@ -172,6 +172,16 @@ namespace Assignment3
         {
             secondDataGrid.ItemsSource = context.Planets.ToList();
             secondDataGrid.Items.Refresh();
+        }
+
+        private void FirstDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            secondDataGrid.UnselectAll();
+        }
+
+        private void SecondDataGrid_GotFocus(object sender, RoutedEventArgs e)
+        {
+            firstDataGrid.UnselectAll();
         }
     }
 }
