@@ -26,32 +26,32 @@
         <Rectangle Grid.Row="2" Grid.Column="2" Fill="White" Margin="0.333,0.333,-0.333,0" />
         <Rectangle Grid.Row="3" Grid.Column="0" Fill="#FF7DCCD4" Margin="0,0,0.333,0.334" />
         <Rectangle Grid.Row="3" Fill="#FF7DCCD4" Grid.ColumnSpan="3" Margin="289,0,289.667,0.334" />
-        <Rectangle Grid.Row="3" Grid.Column="2" Fill="#FF7DCCD4" Margin="0.333,0,-0.333,0.334" />
+        <Rectangle Grid.Row="3" Grid.Column="2" Fill="#FF7DCCD4" Margin="0.333,0,-0.333,0.333" />
 
         <ComboBox x:Name="firstComboBox" HorizontalAlignment="Left" Margin="34,34.333,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="FirstComboBox_SelectionChanged" Grid.Row="2">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0}: {1}">
-                                <Binding Path="Name"/>
-                                <Binding Path="Color"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="244" Margin="34,10,0,0" VerticalAlignment="Top" Width="205" AutoGenerateColumns="False" RenderTransformOrigin="-0.413,0.518" Grid.Row="1">
-            <DataGrid.Columns>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}: {1}">
+                                    <Binding Path="Name"/>
+                                    <Binding Path="Color"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <DataGrid x:Name="firstDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="244" Margin="34,10,0,0" VerticalAlignment="Top" Width="205" AutoGenerateColumns="False" RenderTransformOrigin="-0.413,0.518" Grid.Row="1" GotFocus="FirstDataGrid_GotFocus">
+                <DataGrid.Columns>
                 <DataGridTextColumn Header="FruitId" Binding="{Binding FruitId}" IsReadOnly="true"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="true"/>
                 <DataGridTextColumn Header="Color" Binding="{Binding Color}" IsReadOnly="true"/>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox x:Name="secondComboBox" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="34,87.333,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286" Grid.Row="2"/>
-        <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="244" Margin="0,10,34.667,0" VerticalAlignment="Top" Width="205" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1">
-            <DataGrid.Columns>
+                <ComboBox x:Name="secondComboBox" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="34,87.333,0,0" VerticalAlignment="Top" Width="141" SelectionChanged="SecondComboBox_SelectionChanged" RenderTransformOrigin="-0.343,2.286" Grid.Row="2"/>
+                <DataGrid x:Name="secondDataGrid" ItemsSource="{Binding}" HorizontalAlignment="Right" Height="244" Margin="0,10,34.667,0" VerticalAlignment="Top" Width="205" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="1" GotFocus="SecondDataGrid_GotFocus">
+                    <DataGrid.Columns>
                 <DataGridTextColumn Header="PlanetId" Binding="{Binding PlanetId}" IsReadOnly="true"/>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" IsReadOnly="true"/>
                 <DataGridTextColumn Header="Color" Binding="{Binding Color}" IsReadOnly="true"/>
